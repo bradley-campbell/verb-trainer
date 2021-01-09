@@ -1,0 +1,9 @@
+/node_modules
+/verb-logic
+verb.json
+verb.txt
+verbData.txt
+module.txt
+verb.js
+.env
+yarn.lock
