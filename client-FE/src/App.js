@@ -1,58 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 import verbList from "french-verbs-list";
-import base64 from "base-64";
 import QueryForm from "./QueryForm";
 import styled from "styled-components";
+import { QueryContext } from "./QueryContext";
+import GlobalStyles from "./GlobalStyles";
+import "normalize.css";
 
 function App() {
-  const [data, setData] = useState({
-    conjugated: "",
-    results: "",
-  });
-  const [query, setQuery] = useState({
-    verb: "",
-    mood: "",
-    temps: "",
-    personne: "",
-  });
-
-  const handleFetch = async () => {
-    const url = `/conjug?verb=${query.verb}&temps=${query.temps}&personne=${query.personne}&mood=${query.mood}`;
-    const response = await fetch(url);
-    const parsed = await response.json();
-
-    const lexicalaHeaders = {
-      headers: new Headers({
-        Authorization: `Basic ${base64.encode(
-          `${process.env.REACT_APP_LEXICALA_USERNAME}:${process.env.REACT_APP_LEXICALA_PASSWORD}`
-        )}`,
-      }),
-    };
-
-    const definition = await fetch(
-      `https://dictapi.lexicala.com/search?text=${query.verb}&language=fr`,
-      lexicalaHeaders
-    );
-    const definitionParsed = await definition.json();
-    setData({ conjugated: parsed.data, results: definitionParsed.results[0] });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleFetch();
-  };
-
-  console.log(data);
+  const { data } = useContext(QueryContext);
 
   return (
     <Wrapper>
-      <h1>French Club Verb Trainer</h1>
-      <QueryForm
-        handleSubmit={handleSubmit}
-        data={data}
-        query={query}
-        setQuery={setQuery}
-      />
+      <GlobalStyles />
+      <h1>FRENCH CLUB</h1>
+      <QueryForm />
       {data.conjugated && <h1>{data.conjugated}</h1>}
       {data.results &&
         data.results.senses.map((sense) => <h1>{sense.definition}</h1>)}

@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import OptionSelect from "./Select";
 import styled from "styled-components";
+import { QueryContext } from "./QueryContext";
+import handleFetch from "./handleFetch";
 
-const tenses = ["Présent", "Imparfait", "Passé Simple", "Futur"];
+const QueryForm = () => {
+  const { query, setData, setQuery, options } = useContext(QueryContext);
 
-const mood = ["Indicatif", "Conditionnel", "Subjonctif", "Imperatif"];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleFetch(query, setData);
+  };
 
-const person = ["1s", "2s", "3s", "1p", "2p", "3p"];
-
-const QueryForm = ({ data, query, setQuery, handleSubmit }) => {
   return (
-    <>
+    <Wrapper>
       <Form onSubmit={handleSubmit}>
         <input
           placeholder="enter a verb"
@@ -22,30 +25,16 @@ const QueryForm = ({ data, query, setQuery, handleSubmit }) => {
           required
         ></input>
 
+        <OptionSelect choices={options.tense} label="Tense" queryKey="temps" />
+        <OptionSelect choices={options.mood} label="Mood" queryKey="mood" />
         <OptionSelect
-          query={query}
-          setQuery={setQuery}
-          choices={tenses}
-          label="Tense"
-          queryKey="temps"
-        />
-        <OptionSelect
-          query={query}
-          setQuery={setQuery}
-          choices={mood}
-          label="Mood"
-          queryKey="mood"
-        />
-        <OptionSelect
-          query={query}
-          setQuery={setQuery}
-          choices={person}
+          choices={options.person}
           label="Person"
           queryKey="personne"
         />
-        <button type="submit">SUBMIT</button>
+        <Button type="submit">SUBMIT</Button>
       </Form>
-    </>
+    </Wrapper>
   );
 };
 
@@ -56,6 +45,19 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: black 2px solid;
   padding: 15px;
+`;
+
+const Button = styled.button`
+  margin-top: 15px;
+  color: rgba(224, 224, 224, 1);
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
+`;
+
+const Wrapper = styled.div`
+  padding: 25px;
+  background-color: rgba(224, 224, 224, 0.7);
+  border-radius: 15px;
 `;

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { QueryContext } from "./QueryContext";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -16,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OptionSelect = ({ query, setQuery, choices, label, queryKey }) => {
-    
+const OptionSelect = ({ choices, label, queryKey }) => {
   const classes = useStyles();
+  const { query, setQuery } = useContext(QueryContext);
 
   return (
     <FormControl className={classes.formControl}>
@@ -42,16 +43,3 @@ const OptionSelect = ({ query, setQuery, choices, label, queryKey }) => {
 
 export default OptionSelect;
 
-const Wrapper = styled.div``;
-
-//   <select
-//         onChange={(e) => {
-//           setQuery({ ...query, personne: e.target.value });
-//         }}
-//         required
-//       >
-//         <option></option>
-//         {choices.map((item) => (
-//           <option value={item}>{item}</option>
-//         ))}
-//       </select>

@@ -1,11 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import QueryProvider from "./QueryContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <QueryProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </QueryProvider>,
+  document.getElementById("root")
 );
-
