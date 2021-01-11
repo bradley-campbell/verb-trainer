@@ -25,11 +25,11 @@ const QueryForm = () => {
           required
         ></input>
 
-        <OptionSelect choices={options.tense} label="Tense" queryKey="temps" />
-        <OptionSelect choices={options.mood} label="Mood" queryKey="mood" />
+        <OptionSelect choices={options.mood} label="Mode" queryKey="mood" />
+        <OptionSelect choices={options.tense} label="Temps" queryKey="temps" />
         <OptionSelect
           choices={options.person}
-          label="Person"
+          label="Personne"
           queryKey="personne"
         />
         <Button type="submit">SUBMIT</Button>
