@@ -14,6 +14,8 @@ const QueryProvider = ({ children }) => {
     personne: "",
   });
 
+  const [verbTable, setVerbTable] = useState({});
+
   const options = {
     mood: ["Indicatif", "Conditionnel", "Subjonctif", "Imperatif"],
     tense:
@@ -30,8 +32,29 @@ const QueryProvider = ({ children }) => {
         : ["1s", "2s", "3s", "1p", "2p", "3p"],
   };
 
+  const [userResponse, setUserResponse] = useState({
+    s1: "",
+    s2: "",
+    s3: "",
+    p1: "",
+    p2: "",
+    p3: "",
+  });
+
   return (
-    <QueryContext.Provider value={{ data, setData, query, setQuery, options }}>
+    <QueryContext.Provider
+      value={{
+        data,
+        setData,
+        query,
+        setQuery,
+        options,
+        userResponse,
+        setUserResponse,
+        verbTable,
+        setVerbTable,
+      }}
+    >
       {children}
     </QueryContext.Provider>
   );

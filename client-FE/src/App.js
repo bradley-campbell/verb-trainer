@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { QueryContext } from "./QueryContext";
 import GlobalStyles from "./GlobalStyles";
 import "normalize.css";
+import Quiz from "./quiz/Quiz";
+import handleFetch from "./handleFetch";
 
 function App() {
   const { data } = useContext(QueryContext);
@@ -13,10 +15,11 @@ function App() {
     <Wrapper>
       <GlobalStyles />
       <h1>FRENCH CLUB</h1>
-      <QueryForm />
-      {data.conjugated && <h1>{data.conjugated}</h1>}
+      {/* <QueryForm /> */}
+      <Quiz />
+      {/* {data.conjugated && <h1>{data.conjugated}</h1>}
       {data.results &&
-        data.results.senses.map((sense) => <h1>{sense.definition}</h1>)}
+        data.results.senses.map((sense) => <h1>{sense.definition}</h1>)} */}
     </Wrapper>
   );
 }

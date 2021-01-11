@@ -30,7 +30,6 @@ const getTable = async (req, res) => {
 
   verbTable.stdout.on("data", (data) => {
     const parsedData = JSON.parse(data);
-    console.log(organizeData(parsedData, verb));
     res.status(200).json({ status: 200, data: organizeData(parsedData, verb) });
   });
 };
