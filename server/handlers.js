@@ -1,7 +1,10 @@
-const { spawn } = require("child_process");
+const { spawn, exec } = require("child_process");
+const { stringify } = require("querystring");
+const { organizeData } = require("./verb");
 
 const getConjug = async (req, res) => {
-  const { verb, mood, temps, personne } = req.query;
+  const { verb, mood, personne } = req.query;
+  const temps = mood === "Imperatif" ? "Imperatif Présent" : req.query.temps; // mlconjug3 uses "Imperatif Présent" instead of simply "Présent"
   let dataString = "";
 
   const conjug = spawn("python3", [
@@ -21,4 +24,15 @@ const getConjug = async (req, res) => {
   });
 };
 
-module.exports = { getConjug };
+const getTable = async (req, res) => {
+  const { verb } = req.query;
+  const verbTable = spawn("mlconjug3", [verb]);
+
+  verbTable.stdout.on("data", (data) => {
+    const parsedData = JSON.parse(data);
+    console.log(organizeData(parsedData, verb));
+    res.status(200).json({ status: 200, data: organizeData(parsedData, verb) });
+  });
+};
+
+module.exports = { getConjug, getTable };
