@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { QueryContext } from "../QueryContext";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Input from "./Input";
 import SubmitButton from "../Button";
+import handleFetch from "./handleFetch";
+import QueryQuizForm from "./QuizQueryForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,13 +17,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Quiz = () => {
-  const [quizVerb, setQuizVerb] = useState("");
-
   const {
-    data,
-    setData,
     userResponse,
-    query: { verb },
+    query: { verb, temps, mood },
     verbTable,
     setVerbTable,
   } = useContext(QueryContext);
@@ -30,31 +28,21 @@ const Quiz = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit");
-  };
 
-  const handleFetch = async () => {
-    const response = await fetch(`/table?verb=${quizVerb}`);
-    const verbTable = await response.json();
-    setVerbTable({ data: verbTable.data });
-  };
-
-  const handleChooseVerb = (e) => {
-    e.preventDefault();
-    handleFetch();
+    if (
+      JSON.stringify(verbTable.data[mood][temps]) === // Compare user response with fetched verb table
+      JSON.stringify(userResponse)
+    ) {
+      console.log("good job!"); // TODO - If there's a match, the user should see a message
+    } else {
+      console.log("try again"); // TODO - If there's no match, the user should see a message - maybe event a count of how many fields match
+    }
   };
 
   return (
     <Wrapper>
       {!verbTable.data && (
-        <form onSubmit={handleChooseVerb}>
-          <input
-            onChange={(e) => {
-              setQuizVerb(e.target.value);
-            }}
-            placeholder="Choose a verb"
-          ></input>
-          <button type="submit">Submit</button>
-        </form>
+        <QueryQuizForm dataToUpdate={setVerbTable} handleFetch={handleFetch} />
       )}
 
       {verbTable.data && (
@@ -65,7 +53,7 @@ const Quiz = () => {
             autoComplete="off"
             onSubmit={handleSubmit}
           >
-            <h1>{quizVerb}</h1>
+            <h1>{verb}</h1>
             <QuizFields>
               <QuizColumn>
                 <Input placeholder="Je" personne="s1" />
@@ -79,6 +67,9 @@ const Quiz = () => {
               </QuizColumn>
             </QuizFields>
             <SubmitButton />
+            <h1>
+              {mood} {temps}
+            </h1>
           </Form>
         </>
       )}
@@ -100,6 +91,12 @@ const Wrapper = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    text-align: center;
+  }
 `;
 
 const QuizColumn = styled.div`
