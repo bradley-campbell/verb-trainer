@@ -25,7 +25,7 @@ const QueryProvider = ({ children }) => {
         ? ["Présent"]
         : query.mood === "Imperatif"
         ? ["Présent"]
-        : ["Présent", "Imparfait", "Passé Simple", "Futur"],
+        : ["Présent", "Imparfait", "PasséSimple", "Futur"], // Had to write Passé Simple without the space to match object key
     person:
       query.mood === "Imperatif" // Imperative mood only uses second person singular (2s), first person plural (1p) and second person plural (2p)
         ? ["2s", "1p", "2p"]
@@ -42,7 +42,7 @@ const QueryProvider = ({ children }) => {
   });
 
   return (
-    <QueryContext.Provider
+    <QueryContext.Provider // This is quite full, may be a good idea to make a separate context for fetched data
       value={{
         data,
         setData,

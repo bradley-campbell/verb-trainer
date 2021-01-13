@@ -2,14 +2,14 @@ import React, { useContext } from "react";
 import OptionSelect from "./Select";
 import styled from "styled-components";
 import { QueryContext } from "./QueryContext";
-import handleFetch from "./handleFetch";
+import SubmitButton from "./SubmitButton";
 
-const QueryForm = () => {
-  const { query, setData, setQuery, options } = useContext(QueryContext);
+const QueryForm = ({ handleFetch, dataToUpdate, personne }) => {
+  const { query, setQuery, options } = useContext(QueryContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleFetch(query, setData);
+    handleFetch(query, dataToUpdate);
   };
 
   return (
@@ -27,12 +27,14 @@ const QueryForm = () => {
 
         <OptionSelect choices={options.mood} label="Mode" queryKey="mood" />
         <OptionSelect choices={options.tense} label="Temps" queryKey="temps" />
-        <OptionSelect
-          choices={options.person}
-          label="Personne"
-          queryKey="personne"
-        />
-        <Button type="submit">SUBMIT</Button>
+        {personne && (
+          <OptionSelect
+            choices={options.person}
+            label="Personne"
+            queryKey="personne"
+          />
+        )}
+        <SubmitButton />
       </Form>
     </Wrapper>
   );

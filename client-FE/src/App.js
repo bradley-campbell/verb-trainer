@@ -1,5 +1,4 @@
 import React, { useState, createContext, useContext } from "react";
-import verbList from "french-verbs-list";
 import QueryForm from "./QueryForm";
 import styled from "styled-components";
 import { QueryContext } from "./QueryContext";
@@ -9,17 +8,21 @@ import Quiz from "./quiz/Quiz";
 import handleFetch from "./handleFetch";
 
 function App() {
-  const { data } = useContext(QueryContext);
+  const { data, setData } = useContext(QueryContext);
 
   return (
     <Wrapper>
       <GlobalStyles />
       <h1>FRENCH CLUB</h1>
-      {/* <QueryForm /> */}
+      <QueryForm
+        handleFetch={handleFetch}
+        dataToUpdate={setData}
+        personne={true}
+      />
       <Quiz />
-      {/* {data.conjugated && <h1>{data.conjugated}</h1>}
+      {data.conjugated && <h1>{data.conjugated}</h1>}
       {data.results &&
-        data.results.senses.map((sense) => <h1>{sense.definition}</h1>)} */}
+        data.results.senses.map((sense) => <h1>{sense.definition}</h1>)}
     </Wrapper>
   );
 }
@@ -33,3 +36,16 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
+{
+  /* <h1>French Club</h1>;
+{
+  welcome && <Welcome />;
+}
+{
+  conjug && <Conjug />;
+}
+{
+  quiz && <Quiz />;
+} */
+}

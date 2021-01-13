@@ -6,15 +6,13 @@ const Input = ({ placeholder, personne }) => {
   const { userResponse, setUserResponse } = useContext(QueryContext);
 
   return (
-    <>
-      <TextField
-        id="standard-basic"
-        label={placeholder}
-        onChange={(e) => {
-          setUserResponse({ ...userResponse, [personne]: e.target.value });
-        }}
-      />
-    </>
+    <TextField
+      id="standard-basic"
+      label={placeholder}
+      onChange={(e) => {
+        setUserResponse({ ...userResponse, [personne]: e.target.value });
+      }}
+    />
   );
 };
 
