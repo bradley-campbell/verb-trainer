@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
-import { QueryContext } from "../QueryContext";
+import { QueryContext, DisplayContext } from "../Context";
 import { makeStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import Input from "./Input";
 import SubmitButton from "../SubmitButton";
-import handleFetch from "./handleFetch";
-import QueryForm from "../QueryForm";
 import ChooseVerb from "./ChooseVerb";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +23,8 @@ const Quiz = () => {
     setVerbTable,
   } = useContext(QueryContext);
 
+  const { display, setDisplay } = useContext(DisplayContext);
+
   const classes = useStyles();
 
   const [result, setResult] = useState("");
@@ -43,16 +43,9 @@ const Quiz = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper visibility={display.quiz}>
       <h1>QUIZ</h1>
       <ChooseVerb />
-      {/* {!verbTable.data && (
-        <QueryForm
-          dataToUpdate={setVerbTable}
-          handleFetch={handleFetch}
-          personne={false}
-        />
-      )} */}
 
       {verbTable.data && (
         <>
@@ -94,6 +87,7 @@ const Quiz = () => {
 export default Quiz;
 
 const Wrapper = styled.div`
+  visibility: ${(props) => (props.visibility ? "visible" : "hidden")};
   padding: 25px;
   background-color: rgba(224, 224, 224, 0.7);
   border-radius: 15px;

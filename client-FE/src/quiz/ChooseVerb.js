@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { QueryContext } from "../QueryContext";
+import { QueryContext } from "../Context";
 import styled from "styled-components";
 import verbList from "french-verbs-list";
 import TextField from "@material-ui/core/TextField";
@@ -13,6 +13,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
 import handleFetch from "./handleFetch";
+import QueryForm from "../QueryForm";
 
 import _ from "lodash";
 
@@ -32,7 +33,9 @@ const ChooseVerb = () => {
 
   const [randomVerb, setRandomVerb] = useState("");
 
-  const { setVerbTable, setQuery, query, options } = useContext(QueryContext);
+  const { verbTable, setVerbTable, setQuery, query, options } = useContext(
+    QueryContext
+  );
 
   useEffect(() => {
     setQuery({ ...query, mood: _.sample(options.mood) });
@@ -49,10 +52,20 @@ const ChooseVerb = () => {
     console.log(query);
   };
 
-  const { setUserResponse } = useContext(QueryContext);
+  const { userResponse } = useContext(QueryContext);
+
+  console.log(userResponse, verbTable);
 
   return (
     <div>
+      {!verbTable.data && (
+        <QueryForm
+          dataToUpdate={setVerbTable}
+          handleFetch={handleFetch}
+          personne={false}
+        />
+      )}
+
       <form
         className={classes.root}
         noValidate
@@ -70,6 +83,9 @@ const ChooseVerb = () => {
             type="search"
             variant="filled"
             value={query.verb}
+            onChange={(e) => {
+              setQuery({ ...query, verb: e.target.value });
+            }}
           />
         </div>
 

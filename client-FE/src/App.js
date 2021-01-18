@@ -1,28 +1,23 @@
-import React, { useState, createContext, useContext } from "react";
-import QueryForm from "./QueryForm";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { QueryContext } from "./QueryContext";
+import { QueryContext } from "./Context";
 import GlobalStyles from "./GlobalStyles";
 import "normalize.css";
 import Quiz from "./quiz/Quiz";
-import handleFetch from "./handleFetch";
+import Welcome from "./Welcome/Welcome";
+import Conjugator from "./Conjug/Conjugator";
 
 function App() {
+
   const { data, setData } = useContext(QueryContext);
 
   return (
     <Wrapper>
       <GlobalStyles />
       <h1>FRENCH CLUB</h1>
-      <QueryForm
-        handleFetch={handleFetch}
-        dataToUpdate={setData}
-        personne={true}
-      />
+      <Welcome />
+      <Conjugator />
       <Quiz />
-      {data.conjugated && <h1>{data.conjugated}</h1>}
-      {data.results &&
-        data.results.senses.map((sense) => <h1>{sense.definition}</h1>)}
     </Wrapper>
   );
 }
@@ -37,15 +32,15 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-{
-  /* <h1>French Club</h1>;
-{
-  welcome && <Welcome />;
-}
-{
-  conjug && <Conjug />;
-}
-{
-  quiz && <Quiz />;
-} */
-}
+// {
+//   /* <h1>French Club</h1>;
+// {
+//   welcome && <Welcome />;
+// }
+// {
+//   conjug && <Conjug />;
+// }
+// {
+//   quiz && <Quiz />;
+// } */
+// }

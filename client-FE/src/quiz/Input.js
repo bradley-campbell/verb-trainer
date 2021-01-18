@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import TextField from "@material-ui/core/TextField";
-import { QueryContext } from "../QueryContext";
+import { QueryContext } from "../Context";
 
 const Input = ({ placeholder, personne }) => {
   const { userResponse, setUserResponse } = useContext(QueryContext);

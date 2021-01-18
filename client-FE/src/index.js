@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import QueryProvider from "./QueryContext";
-import DisplayProvider from "./DisplayContext";
-import DataProvider from "./DataContext";
+import { DataProvider, DisplayProvider, QueryProvider } from "./Context";
 
 ReactDOM.render(
   <DataProvider>
-    <QueryProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </QueryProvider>
+    <DisplayProvider>
+      <QueryProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </QueryProvider>
+    </DisplayProvider>
   </DataProvider>,
   document.getElementById("root")
 );

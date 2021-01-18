@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import OptionSelect from "./Select";
 import styled from "styled-components";
-import { QueryContext } from "./QueryContext";
+import { QueryContext } from "./Context";
 import SubmitButton from "./SubmitButton";
 
 const QueryForm = ({ handleFetch, dataToUpdate, personne }) => {
