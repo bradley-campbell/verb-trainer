@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, Radio } from "semantic-ui-react";
+import { Form, Radio, Segment } from "semantic-ui-react";
 import { QueryContext } from "../../context/QueryContext";
 
 const MoodRadio = ({ data, label }) => {
@@ -11,19 +11,17 @@ const MoodRadio = ({ data, label }) => {
 
   return (
     <Form>
-      <Form.Field>{label}</Form.Field>
-
+      <Form.Field>Person</Form.Field>
       {person.map((option) => {
         return (
           <Form.Field>
             <Radio
-              label={option}
+              label={option.label}
               name="radioGroup"
-              value={option}
-              checked={query.mood === option}
+              value={option.value}
+              checked={query.person === option.value}
               onChange={() => {
-                setQuery({ ...query, mood: option });
-                console.log(query);
+                setQuery({ ...query, person: option.value });
               }}
             />
           </Form.Field>

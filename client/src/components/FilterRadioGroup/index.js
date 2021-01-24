@@ -3,6 +3,7 @@ import React, { useEffect, useContext } from "react";
 import { Segment } from "semantic-ui-react";
 import { QueryContext } from "../../context/QueryContext";
 import MoodRadio from "./MoodRadio";
+import PersonRadio from "./PersonRadio";
 
 const segmentStyling = {
   display: "flex",
@@ -13,7 +14,7 @@ const segmentStyling = {
 
 const FilterRadioGroup = () => {
   const {
-    options: { mood, tense, person },
+    options: { mood, tense },
     query,
     setQuery,
   } = useContext(QueryContext);
@@ -26,7 +27,7 @@ const FilterRadioGroup = () => {
     <Segment style={segmentStyling}>
       <MoodRadio data={mood} label="mood" />
       <MoodRadio data={tense} label="tense" />
-      <MoodRadio data={person} label="person" />
+      <PersonRadio />
     </Segment>
   );
 };

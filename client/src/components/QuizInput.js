@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Segment, Input, SegmentGroup, Button } from "semantic-ui-react";
+import { firstGroup, secondGroup, thirdGroup } from "french-verbs-list";
 
 import { QueryContext } from "../context/QueryContext";
 
@@ -11,12 +12,44 @@ const inputSegment = {
 };
 
 const QuizInput = () => {
-  const { userResponse, setUserResponse } = useContext(QueryContext);
+  const { userResponse, setUserResponse, query, setQuery } = useContext(
+    QueryContext
+  );
+
+  // const fetchDefinition = async () => {
+  //   const url =
+  //     "https://od-api.oxforddictionaries.com/api/v2/entries/fr/picoler";
+
+  //   const reqObj = {
+  //     mode: "no-cors",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       app_key: process.env.REACT_APP_OXFORD_KEY,
+  //       app_id: process.env.REACT_APP_OXFORD_KEY,
+  //     },
+  //   };
+
+  //   const data = await fetch(url, reqObj);
+  //   const parsed = await data.json();
+  //   console.log(parsed);
+  // };
+
+  const selectRandomVerb = () => {
+    setQuery({ ...query, verb: firstGroup[100] });
+  };
+
+  const handleChange = (e, { value }) => {
+    setQuery({ ...query, verb: value });
+  };
 
   return (
     <Segment>
-      <Input placeholder="Choose a verb..." />
-      <Button>Random Verb</Button>
+      <Input
+        placeholder="Choose a verb..."
+        onChange={handleChange}
+        value={query.verb}
+      />
+      <Button onClick={selectRandomVerb}>Random Verb</Button>
       <SegmentGroup horizontal>
         <Segment style={inputSegment}>
           <Input

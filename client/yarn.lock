@@ -5084,6 +5084,11 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+french-verbs-list@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/french-verbs-list/-/french-verbs-list-0.0.2.tgz#6a29abf68a719684d327a70cbb57c9d48d047f9d"
+  integrity sha512-EBoJ+JNS6Nv6PTvF8HxvUoMG9TRycrx9vYVcthjqqPKEWt8ZX5zEb9erh/RWFNYPRo5aHmiDlYQlZjhSlomBRA==
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"

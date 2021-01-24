@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import FilterRadioGroup from "../../components/FilterRadioGroup";
 import SearchBar from "../../components/SearchBar";
@@ -15,19 +15,14 @@ const HomePage = () => {
     const url = `/conjug?verb=${verb}&personne=${person}&temps=${tense}&mood=${mood}`;
     const response = await fetch(url);
     const parsed = await response.json();
-    console.log(parsed);
+    alert(parsed.data);
     setData(parsed.data);
   };
-
-  useEffect(() => {
-    handleFetch();
-  }, []);
 
   return (
     <>
       <FilterRadioGroup />
       <SearchBar handleFetch={handleFetch} />
-      <div>{data}</div>
     </>
   );
 };

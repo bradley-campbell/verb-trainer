@@ -4,13 +4,13 @@ import RadioGroup from "../../components/FilterRadioGroup";
 import QuizInput from "../../components/QuizInput";
 
 const Quiz = () => {
-  // const handleFetch = async (query, setVerbTable) => {
-  //   const response = await fetch(`/table?verb=${query.verb}`);
-  //   const verbTable = await response.json();
-  //   setVerbTable({ data: verbTable.data });
-  // };
+  const handleFetch = async (query, setVerbTable) => {
+    const response = await fetch(`/table?verb=manger`);
+    const verbTable = await response.json();
+    setVerbTable({ data: verbTable.data });
+  };
 
-  return <QuizInput />;
+  return <QuizInput handleFetch={handleFetch} />;
 };
 
 export default Quiz;
