@@ -1,70 +1,14 @@
 import React, { createContext, useState } from "react";
 
-export const DisplayContext = createContext(null);
-
-export const DisplayProvider = ({ children }) => {
-  const [display, setDisplay] = useState({
-    welcome: true,
-    conjug: false,
-    quiz: false,
-    chooseVerb: true,
-  });
-
-  return (
-    <DisplayContext.Provider
-      value={{
-        display,
-        setDisplay,
-      }}
-    >
-      {children}
-    </DisplayContext.Provider>
-  );
-};
-
-//
-
-export const DataContext = createContext(null);
-
-export const DataProvider = ({ children }) => {
-  const [data, setData] = useState({
-    conjugated: "",
-    results: "",
-  });
-
-  const [verbTable, setVerbTable] = useState({});
-
-  return (
-    <DataContext.Provider // This is quite full, may be a good idea to make a separate context for fetched data
-      value={{
-        data,
-        setData,
-        verbTable,
-        setVerbTable,
-      }}
-    >
-      {children}
-    </DataContext.Provider>
-  );
-};
-
-//
-
 export const QueryContext = createContext(null);
 
 export const QueryProvider = ({ children }) => {
-  const [data, setData] = useState({
-    conjugated: "",
-    results: "",
-  });
   const [query, setQuery] = useState({
     verb: "",
-    mood: "",
-    temps: "",
-    personne: "",
+    mood: "Indicatif",
+    tense: "Présent",
+    personne: "1s",
   });
-
-  const [verbTable, setVerbTable] = useState({});
 
   const options = {
     mood: ["Indicatif", "Conditionnel", "Subjonctif", "Imperatif"],
@@ -94,15 +38,11 @@ export const QueryProvider = ({ children }) => {
   return (
     <QueryContext.Provider // This is quite full, may be a good idea to make a separate context for fetched data
       value={{
-        data,
-        setData,
         query,
         setQuery,
         options,
         userResponse,
         setUserResponse,
-        verbTable,
-        setVerbTable,
       }}
     >
       {children}
