@@ -1,8 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { Segment, Input, SegmentGroup, Button } from "semantic-ui-react";
-import { firstGroup, secondGroup, thirdGroup } from "french-verbs-list";
+import frenchVerbsList, {
+  firstGroup,
+  secondGroup,
+  thirdGroup,
+} from "french-verbs-list";
+import _ from "lodash";
 
-import { QueryContext } from "../context/QueryContext";
+import QueryContext from "../context/QueryContext";
+import FilterRadioGroup from "../components/FilterRadioGroup";
 
 const inputSegment = {
   display: "flex",
@@ -11,7 +17,7 @@ const inputSegment = {
   alignItems: "center",
 };
 
-const QuizInput = () => {
+const QuizInput = ({ handleFetch }) => {
   const { userResponse, setUserResponse, query, setQuery } = useContext(
     QueryContext
   );
@@ -35,7 +41,10 @@ const QuizInput = () => {
   // };
 
   const selectRandomVerb = () => {
-    setQuery({ ...query, verb: firstGroup[100] });
+    setQuery({
+      ...query,
+      verb: _.sample(_.sample(Object.values(frenchVerbsList))),
+    });
   };
 
   const handleChange = (e, { value }) => {
@@ -43,30 +52,42 @@ const QuizInput = () => {
   };
 
   return (
-    <Segment>
-      <Input
-        placeholder="Choose a verb..."
-        onChange={handleChange}
-        value={query.verb}
-      />
-      <Button onClick={selectRandomVerb}>Random Verb</Button>
+    <Segment
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "15px 250px 15px 250px",
+      }}
+    >
+      <div>
+        <Input
+          placeholder="Choose a verb..."
+          onChange={handleChange}
+          value={query.verb}
+        />
+        <Button onClick={selectRandomVerb}>Random Verb</Button>
+      </div>
+      <FilterRadioGroup includePerson={false} />
+      <Button>Start</Button>
       <SegmentGroup horizontal>
-        <Segment style={inputSegment}>
+        <Segment style={inputSegment} inverted>
           <Input
-            placeholder="1s"
+            placeholder="Je"
             onChange={(e) => {
               setUserResponse({ ...userResponse, s1: e.target.value });
               console.log(userResponse);
             }}
           />
           <Input
-            placeholder="2s"
+            placeholder="Tu"
             onChange={(e) => {
               setUserResponse({ ...userResponse, s2: e.target.value });
             }}
           />
           <Input
-            placeholder="3s"
+            placeholder="Il/Elle/On"
             onChange={(e) => {
               setUserResponse({ ...userResponse, s3: e.target.value });
             }}
@@ -74,26 +95,26 @@ const QuizInput = () => {
         </Segment>
         <Segment style={inputSegment}>
           <Input
-            placeholder="1p"
+            placeholder="Nous"
             onChange={(e) => {
               setUserResponse({ ...userResponse, p1: e.target.value });
             }}
           />
           <Input
-            placeholder="2p"
+            placeholder="Vous"
             onChange={(e) => {
               setUserResponse({ ...userResponse, p2: e.target.value });
             }}
           />
           <Input
-            placeholder="3p"
+            placeholder="Ils/Elles"
             onChange={(e) => {
               setUserResponse({ ...userResponse, p3: e.target.value });
             }}
           />
         </Segment>
       </SegmentGroup>
-      <Button>Validate</Button>
+      <Button onClick={handleFetch}>Validate</Button>
     </Segment>
   );
 };

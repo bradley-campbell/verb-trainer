@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Input, Form, Button } from "semantic-ui-react";
 
-import { QueryContext } from "../context/QueryContext";
+import QueryContext from "../context/QueryContext";
 
 // const submitButtonStyles = {
 //   backgroundColor: "#bc5200",

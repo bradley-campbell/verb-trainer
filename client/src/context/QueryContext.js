@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 
-export const QueryContext = createContext(null);
+const QueryContext = createContext(null);
 
 export const QueryProvider = ({ children }) => {
   const [query, setQuery] = useState({
@@ -60,3 +60,5 @@ export const QueryProvider = ({ children }) => {
     </QueryContext.Provider>
   );
 };
+
+export default QueryContext;

@@ -2,12 +2,21 @@ import React, { useContext, useState } from "react";
 import RadioGroup from "../../components/FilterRadioGroup";
 
 import QuizInput from "../../components/QuizInput";
+import QueryContext from "../../context/QueryContext";
+import DataContext from "../../context/DataContext";
 
 const Quiz = () => {
-  const handleFetch = async (query, setVerbTable) => {
-    const response = await fetch(`/table?verb=manger`);
+  const { verbTable, setVerbTable } = useContext(DataContext);
+  const {
+    query: { verb },
+  } = useContext(QueryContext);
+
+  const handleFetch = async () => {
+    console.log("hi");
+    const response = await fetch(`/table?verb=${verb}`);
     const verbTable = await response.json();
     setVerbTable({ data: verbTable.data });
+    console.log(verbTable);
   };
 
   return <QuizInput handleFetch={handleFetch} />;
