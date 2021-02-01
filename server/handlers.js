@@ -25,12 +25,14 @@ const getConjug = async (req, res) => {
 };
 
 const getTable = async (req, res) => {
-  const { verb } = req.query;
+  const { verb, mood, tense } = req.query;
   const verbTable = spawn("mlconjug3", [verb]);
 
   verbTable.stdout.on("data", (data) => {
     const parsedData = JSON.parse(data);
-    res.status(200).json({ status: 200, data: organizeData(parsedData, verb) });
+    res
+      .status(200)
+      .json({ status: 200, data: organizeData(parsedData, verb)[mood][tense] });
   });
 };
 

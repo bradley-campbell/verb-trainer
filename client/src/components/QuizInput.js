@@ -9,6 +9,7 @@ import _ from "lodash";
 
 import QueryContext from "../context/QueryContext";
 import FilterRadioGroup from "../components/FilterRadioGroup";
+import UserInput from "./UserInput";
 
 const inputSegment = {
   display: "flex",
@@ -71,49 +72,7 @@ const QuizInput = ({ handleFetch }) => {
       </div>
       <FilterRadioGroup includePerson={false} />
       <Button>Start</Button>
-      <SegmentGroup horizontal>
-        <Segment style={inputSegment} inverted>
-          <Input
-            placeholder="Je"
-            onChange={(e) => {
-              setUserResponse({ ...userResponse, s1: e.target.value });
-              console.log(userResponse);
-            }}
-          />
-          <Input
-            placeholder="Tu"
-            onChange={(e) => {
-              setUserResponse({ ...userResponse, s2: e.target.value });
-            }}
-          />
-          <Input
-            placeholder="Il/Elle/On"
-            onChange={(e) => {
-              setUserResponse({ ...userResponse, s3: e.target.value });
-            }}
-          />
-        </Segment>
-        <Segment style={inputSegment}>
-          <Input
-            placeholder="Nous"
-            onChange={(e) => {
-              setUserResponse({ ...userResponse, p1: e.target.value });
-            }}
-          />
-          <Input
-            placeholder="Vous"
-            onChange={(e) => {
-              setUserResponse({ ...userResponse, p2: e.target.value });
-            }}
-          />
-          <Input
-            placeholder="Ils/Elles"
-            onChange={(e) => {
-              setUserResponse({ ...userResponse, p3: e.target.value });
-            }}
-          />
-        </Segment>
-      </SegmentGroup>
+      <UserInput />
       <Button onClick={handleFetch}>Validate</Button>
     </Segment>
   );

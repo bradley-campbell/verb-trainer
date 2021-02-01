@@ -8,12 +8,13 @@ import DataContext from "../../context/DataContext";
 const Quiz = () => {
   const { verbTable, setVerbTable } = useContext(DataContext);
   const {
-    query: { verb },
+    query: { verb, mood, tense },
   } = useContext(QueryContext);
 
   const handleFetch = async () => {
-    console.log("hi");
-    const response = await fetch(`/table?verb=${verb}`);
+    const response = await fetch(
+      `/table?verb=${verb}&mood=${mood}&tense=${tense}`
+    );
     const verbTable = await response.json();
     setVerbTable({ data: verbTable.data });
     console.log(verbTable);
