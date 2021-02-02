@@ -71,9 +71,9 @@ const QuizInput = ({ handleFetch }) => {
         <Button onClick={selectRandomVerb}>Random Verb</Button>
       </div>
       <FilterRadioGroup includePerson={false} />
-      <Button>Start</Button>
+      <Button onClick={handleFetch}>Start</Button>
       <UserInput />
-      <Button onClick={handleFetch}>Validate</Button>
+      {/* <Button>Validate</Button> */}
     </Segment>
   );
 };

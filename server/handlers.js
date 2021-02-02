@@ -1,6 +1,6 @@
 const { spawn, exec } = require("child_process");
 const { stringify } = require("querystring");
-const { organizeData } = require("./verb");
+const { organizeData } = require("./organizeData");
 
 const getConjug = async (req, res) => {
   const { verb, mood, personne } = req.query;
@@ -19,7 +19,6 @@ const getConjug = async (req, res) => {
 
   conjug.stdout.on("data", (data) => {
     dataString = data.toString().trim();
-    console.log(dataString);
     res.status(200).json({ status: 200, data: dataString });
   });
 };

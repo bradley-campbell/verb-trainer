@@ -1,16 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
-import { Segment, Input, SegmentGroup, Button, Form } from "semantic-ui-react";
-import frenchVerbsList, {
-  firstGroup,
-  secondGroup,
-  thirdGroup,
-} from "french-verbs-list";
-import _ from "lodash";
+import { Segment, SegmentGroup, Form } from "semantic-ui-react";
 
 import DataContext from "../context/DataContext";
-import FilterRadioGroup from "../components/FilterRadioGroup";
 
 const inputSegment = {
   display: "flex",
@@ -20,18 +13,27 @@ const inputSegment = {
 };
 
 const UserInput = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
-
   const {
     data: { results },
   } = useContext(DataContext);
 
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = (data) => {
+    if (JSON.stringify(data) === JSON.stringify(results)) {
+      console.log("Good job!");
+    } else {
+      console.log("Try Again!");
+    }
+  };
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ visibility: results ? "visible" : "hidden" }}
+    >
       <SegmentGroup horizontal>
         <Segment style={inputSegment} inverted>
-          <Form.Input
+          <input
             type="text"
             name="s1"
             placeholder="Je"
@@ -40,7 +42,8 @@ const UserInput = () => {
               validate: (value) => value === results.s1,
             })}
           />
-          <Form.Input
+          {errors.s1 && "Nope"}
+          <input
             type="text"
             name="s2"
             placeholder="Tu"
@@ -49,7 +52,7 @@ const UserInput = () => {
               validate: (value) => value === results.s2,
             })}
           />
-          <Form.Input
+          <input
             type="text"
             name="s3"
             placeholder="Il/Elle/On"
@@ -60,7 +63,7 @@ const UserInput = () => {
           />
         </Segment>
         <Segment style={inputSegment}>
-          <Form.Input
+          <input
             type="text"
             name="p1"
             placeholder="Nous"
@@ -69,7 +72,7 @@ const UserInput = () => {
               validate: (value) => value === results.p1,
             })}
           />
-          <Form.Input
+          <input
             type="text"
             name="p2"
             placeholder="Vous"
@@ -78,7 +81,7 @@ const UserInput = () => {
               validate: (value) => value === results.p2,
             })}
           />
-          <Form.Input
+          <input
             type="text"
             name="p3"
             placeholder="Ils/Elles"
