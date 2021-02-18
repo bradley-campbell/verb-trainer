@@ -4,6 +4,7 @@ import { Segment } from "semantic-ui-react";
 import QueryContext from "../../context/QueryContext";
 import MoodRadio from "./MoodRadio";
 import PersonRadio from "./PersonRadio";
+import TenseRadio from "./TenseRadio";
 
 const segmentStyling = {
   display: "flex",
@@ -26,7 +27,7 @@ const FilterRadioGroup = ({ includePerson }) => {
   return (
     <Segment style={segmentStyling}>
       <MoodRadio data={mood} label="mood" />
-      <MoodRadio data={tense} label="tense" />
+      <TenseRadio data={tense} label="tense" />
       {includePerson && <PersonRadio />}
     </Segment>
   );

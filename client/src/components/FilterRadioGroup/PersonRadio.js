@@ -2,12 +2,20 @@ import React, { useContext } from "react";
 import { Form, Radio, Segment, SegmentGroup } from "semantic-ui-react";
 import QueryContext from "../../context/QueryContext";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import { setPerson } from "../../redux/verbQuerySlice";
+
 const MoodRadio = ({ data, label }) => {
   const {
     query,
     setQuery,
     options: { person },
   } = useContext(QueryContext);
+
+  const yooo = useSelector((state) => state.reducer);
+
+  const dispatch = useDispatch();
 
   return (
     <Form>
@@ -22,6 +30,8 @@ const MoodRadio = ({ data, label }) => {
               checked={query.person === person[0].value}
               onChange={() => {
                 setQuery({ ...query, person: person[0].value });
+                dispatch(setPerson(person[0].value));
+                console.log(yooo);
               }}
             />
           </Form.Field>
@@ -33,6 +43,7 @@ const MoodRadio = ({ data, label }) => {
               checked={query.person === person[1].value}
               onChange={() => {
                 setQuery({ ...query, person: person[1].value });
+                dispatch(setPerson(person[1].value));
               }}
             />
           </Form.Field>
@@ -44,6 +55,7 @@ const MoodRadio = ({ data, label }) => {
               checked={query.person === person[2].value}
               onChange={() => {
                 setQuery({ ...query, person: person[2].value });
+                dispatch(setPerson(person[2].value));
               }}
             />
           </Form.Field>
@@ -59,6 +71,7 @@ const MoodRadio = ({ data, label }) => {
                 checked={query.person === person[3].value}
                 onChange={() => {
                   setQuery({ ...query, person: person[3].value });
+                  dispatch(setPerson(person[3].value));
                 }}
               />
             </Form.Field>
@@ -70,6 +83,7 @@ const MoodRadio = ({ data, label }) => {
                 checked={query.person === person[4].value}
                 onChange={() => {
                   setQuery({ ...query, person: person[4].value });
+                  dispatch(setPerson(person[4].value));
                 }}
               />
             </Form.Field>
@@ -81,6 +95,7 @@ const MoodRadio = ({ data, label }) => {
                 checked={query.person === person[5].value}
                 onChange={() => {
                   setQuery({ ...query, person: person[5].value });
+                  dispatch(setPerson(person[5].value));
                 }}
               />
             </Form.Field>

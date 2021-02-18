@@ -3,6 +3,10 @@ import { Input, Form, Button } from "semantic-ui-react";
 
 import QueryContext from "../context/QueryContext";
 
+import { useSelector, useDispatch } from "react-redux";
+
+import { setVerb } from "../redux/verbQuerySlice";
+
 // const submitButtonStyles = {
 //   backgroundColor: "#bc5200",
 //   color: "white",
@@ -22,6 +26,10 @@ const FilterResults = ({ handleFetch }) => {
     setQuery,
   } = useContext(QueryContext);
 
+  const yooo = useSelector((state) => state.reducer);
+
+  const dispatch = useDispatch();
+
   const handleSubmit = () => {
     handleFetch();
   };
@@ -32,6 +40,8 @@ const FilterResults = ({ handleFetch }) => {
         <Input
           onChange={(e) => {
             setQuery({ ...query, verb: e.target.value });
+            dispatch(setVerb(e.target.value));
+            console.log(yooo);
           }}
         />
         <Button type="submit">Search</Button>
