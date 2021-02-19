@@ -19,15 +19,7 @@ const wrapperStyle = {
   flexDirection: window.innerWidth > 700 ? "row" : "column",
 };
 
-const FilterResults = ({ handleFetch }) => {
-  const {
-    options: { mood, tense, person },
-    query,
-    setQuery,
-  } = useContext(QueryContext);
-
-  const yooo = useSelector((state) => state.reducer);
-
+const SearchBar = ({ handleFetch }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
@@ -39,9 +31,7 @@ const FilterResults = ({ handleFetch }) => {
       <Form onSubmit={handleSubmit}>
         <Input
           onChange={(e) => {
-            setQuery({ ...query, verb: e.target.value });
             dispatch(setVerb(e.target.value));
-            console.log(yooo);
           }}
         />
         <Button type="submit">Search</Button>
@@ -50,4 +40,4 @@ const FilterResults = ({ handleFetch }) => {
   );
 };
 
-export default FilterResults;
+export default SearchBar;

@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 import { Segment, SegmentGroup, Form } from "semantic-ui-react";
-
-import DataContext from "../context/DataContext";
+import { useSelector } from "react-redux";
 
 const inputSegment = {
   display: "flex",
@@ -13,9 +12,7 @@ const inputSegment = {
 };
 
 const UserInput = () => {
-  const {
-    data: { results },
-  } = useContext(DataContext);
+  const { results } = useSelector((state) => state.verbData);
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
@@ -42,7 +39,6 @@ const UserInput = () => {
               validate: (value) => value === results.s1,
             })}
           />
-          {errors.s1 && "Nope"}
           <input
             type="text"
             name="s2"

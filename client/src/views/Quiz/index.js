@@ -1,22 +1,21 @@
-import React, { useContext, useState } from "react";
-import RadioGroup from "../../components/FilterRadioGroup";
-
+import React from "react";
 import QuizInput from "../../components/QuizInput";
-import QueryContext from "../../context/QueryContext";
-import DataContext from "../../context/DataContext";
+import { useSelector, useDispatch } from "react-redux";
+import { setResults } from "../../redux/verbDataSlice";
 
 const Quiz = () => {
-  const { data, setData } = useContext(DataContext);
+  const dispatch = useDispatch();
+
   const {
     query: { verb, mood, tense },
-  } = useContext(QueryContext);
+  } = useSelector((state) => state.verbQuery);
 
   const handleFetch = async () => {
     const response = await fetch(
       `/table?verb=${verb}&mood=${mood}&tense=${tense}`
     );
     const verbTable = await response.json();
-    setData({ results: verbTable.data });
+    dispatch(setResults(verbTable.data));
   };
 
   return <QuizInput handleFetch={handleFetch} />;

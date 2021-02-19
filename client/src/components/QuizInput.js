@@ -7,7 +7,10 @@ import frenchVerbsList, {
 } from "french-verbs-list";
 import _ from "lodash";
 
-import QueryContext from "../context/QueryContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setVerb } from "../redux/verbQuerySlice";
+
 import FilterRadioGroup from "../components/FilterRadioGroup";
 import UserInput from "./UserInput";
 
@@ -19,9 +22,60 @@ const inputSegment = {
 };
 
 const QuizInput = ({ handleFetch }) => {
-  const { userResponse, setUserResponse, query, setQuery } = useContext(
-    QueryContext
+
+  const dispatch = useDispatch();
+
+  const {
+    query: { verb },
+  } = useSelector((state) => state.verbQuery);
+
+  const selectRandomVerb = () => {
+    dispatch(setVerb(_.sample(_.sample(Object.values(frenchVerbsList)))));
+  };
+
+  const handleChange = (e, { value }) => {
+    dispatch(setVerb(value));
+  };
+
+  return (
+    <Segment
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "15px 250px 15px 250px",
+      }}
+    >
+      <div>
+        <Input
+          placeholder="Choose a verb..."
+          onChange={handleChange}
+          value={verb}
+        />
+        <Button onClick={selectRandomVerb}>Random Verb</Button>
+      </div>
+      <FilterRadioGroup includePerson={false} />
+      <Button onClick={handleFetch}>Start</Button>
+      <UserInput />
+      {/* <Button>Validate</Button> */}
+    </Segment>
   );
+};
+
+export default QuizInput;
+
+// const { data, setData } = useContext(DataContext);
+  // const {
+  //   query: { verb, mood, tense },
+  // } = useContext(QueryContext);
+
+  // const dispatch = useDispatch();
+
+  // const { verbTable } = useSelector((state) => state.verbData);
+  // const queryData = useSelector((state) => state.verbQuery);
+
+  // console.log(verbTable);
 
   // const fetchDefinition = async () => {
   //   const url =
@@ -40,42 +94,3 @@ const QuizInput = ({ handleFetch }) => {
   //   const parsed = await data.json();
   //   console.log(parsed);
   // };
-
-  const selectRandomVerb = () => {
-    setQuery({
-      ...query,
-      verb: _.sample(_.sample(Object.values(frenchVerbsList))),
-    });
-  };
-
-  const handleChange = (e, { value }) => {
-    setQuery({ ...query, verb: value });
-  };
-
-  return (
-    <Segment
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "15px 250px 15px 250px",
-      }}
-    >
-      <div>
-        <Input
-          placeholder="Choose a verb..."
-          onChange={handleChange}
-          value={query.verb}
-        />
-        <Button onClick={selectRandomVerb}>Random Verb</Button>
-      </div>
-      <FilterRadioGroup includePerson={false} />
-      <Button onClick={handleFetch}>Start</Button>
-      <UserInput />
-      {/* <Button>Validate</Button> */}
-    </Segment>
-  );
-};
-
-export default QuizInput;

@@ -17,7 +17,7 @@ const initialState = {
     p3: "",
   },
   options: {
-    mood: ["Indicatif, Conditionnel", "Subjonctif", "Imperatif"],
+    mood: ["Indicatif", "Conditionnel", "Subjonctif", "Imperatif"],
     tense: ["Présent", "Imparfait", "PasséSimple", "Futur"],
     person: [
       { label: "Je", value: "1s" },
@@ -66,4 +66,4 @@ export const {
   setUserResponse,
   setOptions,
 } = verbQuerySlice.actions;
-export default verbQuerySlice;
+export default verbQuerySlice.reducer;

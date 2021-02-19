@@ -7,13 +7,10 @@ import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const {
-    query: { verb, mood, person, tense },
-  } = useSelector((state) => state.reducer);
+    query: { verb, person, tense, mood },
+  } = useSelector((state) => state.verbQuery);
 
   const handleFetch = async () => {
-    console.log(
-      `/conjug?verb=${verb}&personne=${person}&temps=${tense}&mood=${mood}`
-    );
     const url = `/conjug?verb=${verb}&personne=${person}&temps=${tense}&mood=${mood}`;
     const response = await fetch(url);
     const parsed = await response.json();

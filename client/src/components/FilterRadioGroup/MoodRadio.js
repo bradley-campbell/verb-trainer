@@ -12,9 +12,10 @@ import verbQuery, {
 const MoodRadio = ({ data, label }) => {
   const { query, setQuery } = useContext(QueryContext);
 
-  const { verb, mood, tense, person, options } = useSelector(
-    (state) => state.reducer
-  );
+  const {
+    query: { verb, mood, tense, person },
+    options,
+  } = useSelector((state) => state.verbQuery);
 
   const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const MoodRadio = ({ data, label }) => {
     <Form>
       <Form.Field>{label}</Form.Field>
       <Segment>
-        {data.map((mood) => {
+        {options.mood.map((mood) => {
           return (
             <Form.Field>
               <Radio
