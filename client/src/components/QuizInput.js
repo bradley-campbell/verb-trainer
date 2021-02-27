@@ -13,6 +13,7 @@ import { setVerb } from "../redux/verbQuerySlice";
 
 import FilterRadioGroup from "../components/FilterRadioGroup";
 import UserInput from "./UserInput";
+import { useHistory } from "react-router-dom";
 
 const inputSegment = {
   display: "flex",
@@ -22,11 +23,12 @@ const inputSegment = {
 };
 
 const QuizInput = ({ handleFetch }) => {
-
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const {
-    query: { verb },
+    query: { verb, mood, tense },
   } = useSelector((state) => state.verbQuery);
 
   const selectRandomVerb = () => {
@@ -35,6 +37,12 @@ const QuizInput = ({ handleFetch }) => {
 
   const handleChange = (e, { value }) => {
     dispatch(setVerb(value));
+  };
+
+  const openQuiz = () => {
+    if (verb && mood && tense) {
+      history.push(`${verb}/${mood}/${tense}`);
+    }
   };
 
   return (
@@ -56,8 +64,7 @@ const QuizInput = ({ handleFetch }) => {
         <Button onClick={selectRandomVerb}>Random Verb</Button>
       </div>
       <FilterRadioGroup includePerson={false} />
-      <Button onClick={handleFetch}>Start</Button>
-      <UserInput />
+      <Button onClick={openQuiz}>Start</Button>
       {/* <Button>Validate</Button> */}
     </Segment>
   );
@@ -66,31 +73,31 @@ const QuizInput = ({ handleFetch }) => {
 export default QuizInput;
 
 // const { data, setData } = useContext(DataContext);
-  // const {
-  //   query: { verb, mood, tense },
-  // } = useContext(QueryContext);
+// const {
+//   query: { verb, mood, tense },
+// } = useContext(QueryContext);
 
-  // const dispatch = useDispatch();
+// const dispatch = useDispatch();
 
-  // const { verbTable } = useSelector((state) => state.verbData);
-  // const queryData = useSelector((state) => state.verbQuery);
+// const { verbTable } = useSelector((state) => state.verbData);
+// const queryData = useSelector((state) => state.verbQuery);
 
-  // console.log(verbTable);
+// console.log(verbTable);
 
-  // const fetchDefinition = async () => {
-  //   const url =
-  //     "https://od-api.oxforddictionaries.com/api/v2/entries/fr/picoler";
+// const fetchDefinition = async () => {
+//   const url =
+//     "https://od-api.oxforddictionaries.com/api/v2/entries/fr/picoler";
 
-  //   const reqObj = {
-  //     mode: "no-cors",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       app_key: process.env.REACT_APP_OXFORD_KEY,
-  //       app_id: process.env.REACT_APP_OXFORD_KEY,
-  //     },
-  //   };
+//   const reqObj = {
+//     mode: "no-cors",
+//     headers: {
+//       "Content-Type": "application/json",
+//       app_key: process.env.REACT_APP_OXFORD_KEY,
+//       app_id: process.env.REACT_APP_OXFORD_KEY,
+//     },
+//   };
 
-  //   const data = await fetch(url, reqObj);
-  //   const parsed = await data.json();
-  //   console.log(parsed);
-  // };
+//   const data = await fetch(url, reqObj);
+//   const parsed = await data.json();
+//   console.log(parsed);
+// };

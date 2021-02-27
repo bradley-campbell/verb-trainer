@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Segment, SegmentGroup, Form } from "semantic-ui-react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const inputSegment = {
   display: "flex",
@@ -12,10 +13,27 @@ const inputSegment = {
 };
 
 const UserInput = () => {
-  const { results } = useSelector((state) => state.verbData);
+  const { verb, mood, tense } = useParams();
+  const [results, setResults] = useState({});
+
+  const getResults = async () => {
+    const results = await fetch(
+      `/table?verb=${verb}&mood=${mood}&tense=${tense}`
+    );
+    const parsed = await results.json();
+
+    setResults(parsed.data);
+    return parsed;
+  };
+
+  useEffect(() => {
+    getResults();
+  }, []);
 
   const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = (data) => {
+    console.log("DATA", data);
     if (JSON.stringify(data) === JSON.stringify(results)) {
       console.log("Good job!");
     } else {
