@@ -1,6 +1,8 @@
 const { spawn, exec } = require("child_process");
 const { stringify } = require("querystring");
 const { organizeData } = require("./organizeData");
+const fetch = require("node-fetch");
+require("dotenv").config();
 
 const getConjug = async (req, res) => {
   const { verb, mood, personne } = req.query;
@@ -35,4 +37,27 @@ const getTable = async (req, res) => {
   });
 };
 
-module.exports = { getConjug, getTable };
+const getDefinition = async (req, res) => {
+
+
+
+  const fetchDefinition = async () => {
+    const url =
+      "https://od-api.oxforddictionaries.com/api/v2/entries/fr/picoler";
+    const reqObj = {
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+        app_key: process.env.APP_KEY,
+        app_id: process.env.APP_ID,
+      },
+    };
+    const data = await fetch(url, reqObj);
+    const parsed = await data.json();
+    console.log(parsed);
+  };
+
+
+};
+
+module.exports = { getConjug, getTable, getDefinition };

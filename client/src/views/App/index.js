@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "../HomePage";
-import Quiz from "../Quiz";
-import Quiz2 from "../Quiz/Quiz2";
+import QuizSettings from "../QuizSettings";
+import QuizInput from "../QuizInput";
 import Header from "../../components/Header";
 import { Container } from "semantic-ui-react";
 
@@ -19,9 +19,12 @@ const App = () => {
           <Header />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            {/* <Route exact path="/:verb" component={HomePage} /> */}
-            <Route exact path="/quiz/" component={Quiz} />
-            <Route exact path="/quiz/:verb/:mood/:tense" component={Quiz2} />
+            <Route exact path="/quiz/" component={QuizSettings} />
+            <Route
+              exact
+              path="/quiz/:verb/:mood/:tense"
+              component={QuizInput}
+            />
           </Switch>
         </Router>
       </Container>

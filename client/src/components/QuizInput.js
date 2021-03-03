@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setVerb } from "../redux/verbQuerySlice";
 
-import FilterRadioGroup from "../components/FilterRadioGroup";
+import FilterRadioGroup from "./FilterRadioGroup";
 import UserInput from "./UserInput";
 import { useHistory } from "react-router-dom";
 
@@ -65,39 +65,8 @@ const QuizInput = ({ handleFetch }) => {
       </div>
       <FilterRadioGroup includePerson={false} />
       <Button onClick={openQuiz}>Start</Button>
-      {/* <Button>Validate</Button> */}
     </Segment>
   );
 };
 
 export default QuizInput;
-
-// const { data, setData } = useContext(DataContext);
-// const {
-//   query: { verb, mood, tense },
-// } = useContext(QueryContext);
-
-// const dispatch = useDispatch();
-
-// const { verbTable } = useSelector((state) => state.verbData);
-// const queryData = useSelector((state) => state.verbQuery);
-
-// console.log(verbTable);
-
-// const fetchDefinition = async () => {
-//   const url =
-//     "https://od-api.oxforddictionaries.com/api/v2/entries/fr/picoler";
-
-//   const reqObj = {
-//     mode: "no-cors",
-//     headers: {
-//       "Content-Type": "application/json",
-//       app_key: process.env.REACT_APP_OXFORD_KEY,
-//       app_id: process.env.REACT_APP_OXFORD_KEY,
-//     },
-//   };
-
-//   const data = await fetch(url, reqObj);
-//   const parsed = await data.json();
-//   console.log(parsed);
-// };
