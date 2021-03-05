@@ -38,15 +38,13 @@ const getTable = async (req, res) => {
 };
 
 const getDefinition = async (req, res) => {
-
-
+  const { verb } = req.query;
 
   const fetchDefinition = async () => {
-    const url =
-      "https://od-api.oxforddictionaries.com/api/v2/entries/fr/picoler";
+    const url = `https://od-api.oxforddictionaries.com/api/v2/entries/fr/${verb}`;
     const reqObj = {
-      mode: "no-cors",
       headers: {
+        mode: "no-cors",
         "Content-Type": "application/json",
         app_key: process.env.APP_KEY,
         app_id: process.env.APP_ID,
@@ -54,10 +52,11 @@ const getDefinition = async (req, res) => {
     };
     const data = await fetch(url, reqObj);
     const parsed = await data.json();
-    console.log(parsed);
+    console.log(parsed.results);
+    return parsed;
   };
 
-
+  res.status(200).json({ status: 200, data: await fetchDefinition() });
 };
 
 module.exports = { getConjug, getTable, getDefinition };
